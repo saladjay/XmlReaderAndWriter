@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace XmlReaderAndWriter
             if (saveDlg.ShowDialog() == true)
             {
                 string strp = saveDlg.FileName;
-
+                Debug.WriteLine(strp);
                 XmlDocument xmlDoc = new XmlDocument();
                 XmlNode node = null;
                 node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
@@ -48,6 +49,17 @@ namespace XmlReaderAndWriter
                 // BitConverter.ToString(mFactoryData);//for show...
                 // textBx.AppendText("\n");
                 // textBx.AppendText(strp);
+            }
+            {
+                string strp = System.AppDomain.CurrentDomain.BaseDirectory;
+                strp += "456.xml";
+                Debug.WriteLine(strp);
+                XmlDocument xmlDoc = new XmlDocument();
+                XmlNode node = null;
+                node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
+                XmlNode root = xmlDoc.CreateElement("Config");
+                xmlDoc.AppendChild(root);
+                xmlDoc.Save(strp);
             }
         }
     }
