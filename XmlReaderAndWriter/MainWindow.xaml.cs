@@ -47,7 +47,7 @@ namespace XmlReaderAndWriter
                 xmlDoc.Save(strp);
 
                 // BitConverter.ToString(mFactoryData);//for show...
-                // textBx.AppendText("\n");
+                // textBx.AppendText("\n");  
                 // textBx.AppendText(strp);
             }
             {
