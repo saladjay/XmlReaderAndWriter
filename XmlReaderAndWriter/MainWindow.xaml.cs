@@ -24,6 +24,7 @@ namespace XmlReaderAndWriter
     public partial class MainWindow : Window
     {
         SaveFileDialog saveDlg = new SaveFileDialog();
+        OpenFileDialog openDlg = new OpenFileDialog();
         public MainWindow()
         {
             InitializeComponent();
@@ -60,6 +61,22 @@ namespace XmlReaderAndWriter
                 XmlNode root = xmlDoc.CreateElement("Config");
                 xmlDoc.AppendChild(root);
                 xmlDoc.Save(strp);
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            string strp = System.AppDomain.CurrentDomain.BaseDirectory;
+            strp += "123456.txt";
+            string aa = FileReader.ReadTxt(strp);
+            Debug.WriteLine(aa);
+            string[] tempArray = aa.Split('\r');
+            foreach (string item in tempArray)
+            {
+                item.Trim('\r');
+                item.TrimStart('\n');
+                if(!string.IsNullOrEmpty(item))
+                Debug.WriteLine(item+"456");
             }
         }
     }
