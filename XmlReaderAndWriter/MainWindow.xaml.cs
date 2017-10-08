@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using ExtendedString;
 
 namespace XmlReaderAndWriter
 {
@@ -41,15 +42,29 @@ namespace XmlReaderAndWriter
                 string strp = saveDlg.FileName;
                 Debug.WriteLine(strp);
                 XmlDocument xmlDoc = new XmlDocument();
-                XmlNode node = null;
-                node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
-                XmlNode root = xmlDoc.CreateElement("Config");
+                XmlNode Declaration = null;
+                Declaration = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
+                xmlDoc.AppendChild(Declaration);
+                XmlNode root = xmlDoc.CreateElement("Class");
                 xmlDoc.AppendChild(root);
+                XmlElement student1 = xmlDoc.CreateElement("student");
+                student1.SetAttribute("ID", "1");
+
+                XmlElement studentName = xmlDoc.CreateElement("Name");
+                studentName.AppendChild(xmlDoc.CreateTextNode("abc"));
+                student1.AppendChild(studentName);
+
+                XmlElement studentState = xmlDoc.CreateElement("State");
+                studentState.AppendChild(xmlDoc.CreateTextNode("false"));
+                student1.AppendChild(studentState);
+                root.AppendChild(student1);
+
+
+                XmlElement selectedEle = (XmlElement)xmlDoc.DocumentElement.SelectSingleNode("/Class/student[@ID='1']");
+                XmlElement state = (XmlElement)selectedEle.GetElementsByTagName("State")[0];
+                state.InnerText = "True";
                 xmlDoc.Save(strp);
 
-                // BitConverter.ToString(mFactoryData);//for show...
-                // textBx.AppendText("\n");  
-                // textBx.AppendText(strp);
             }
             {
                 string strp = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -72,11 +87,8 @@ namespace XmlReaderAndWriter
             Debug.WriteLine(aa);
             string[] tempArray = aa.Split('\r');
             foreach (string item in tempArray)
-            {
-                item.Trim('\r');
-                item.TrimStart('\n');
-                if(!string.IsNullOrEmpty(item))
-                Debug.WriteLine(item+"456");
+            {    
+                Debug.WriteLine("|"+item.CStrRemoveNullandEmptyAndReturn() + "|");
             }
         }
     }
