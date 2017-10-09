@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace XmlReaderAndWriter
 {
-    class NotificationObject : INotifyPropertyChanged
+    public class NotificationObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

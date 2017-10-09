@@ -60,7 +60,9 @@
     </ApplicationDefinition>
     <Compile Include="FileReader.cs" />
     <Compile Include="NotificationObject.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="ViewModel.cs" />
     <Compile Include="Xmlhelper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using ExtendedString;
+using System.Threading;
 
 namespace XmlReaderAndWriter
 {
@@ -39,11 +40,11 @@ namespace XmlReaderAndWriter
             saveDlg.OverwritePrompt = true;
             if (saveDlg.ShowDialog() == true)
             {
+                
                 string strp = saveDlg.FileName;
                 Debug.WriteLine(strp);
                 XmlDocument xmlDoc = new XmlDocument();
-                XmlNode Declaration = null;
-                Declaration = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
+                XmlNode Declaration = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
                 xmlDoc.AppendChild(Declaration);
                 XmlNode root = xmlDoc.CreateElement("Class");
                 xmlDoc.AppendChild(root);
@@ -71,11 +72,8 @@ namespace XmlReaderAndWriter
                 strp += "456.xml";
                 Debug.WriteLine(strp);
                 XmlDocument xmlDoc = new XmlDocument();
-                XmlNode node = null;
-                node = xmlDoc.CreateXmlDeclaration("1.0", "utf-8", "yes");
-                XmlNode root = xmlDoc.CreateElement("Config");
-                xmlDoc.AppendChild(root);
-                xmlDoc.Save(strp);
+                xmlDoc.Load(strp);
+                //xmlDoc.Save(strp);
             }
         }
 
@@ -90,6 +88,11 @@ namespace XmlReaderAndWriter
             {    
                 Debug.WriteLine("|"+item.CStrRemoveNullandEmptyAndReturn() + "|");
             }
+            string strp1 = System.AppDomain.CurrentDomain.BaseDirectory;
+            strp1 += "456.xml";
+            Debug.WriteLine(strp1);
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(strp1);
         }
     }
 }

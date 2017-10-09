@@ -7,8 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <Button x:Name="button" Content="Button" Click="button_Click" HorizontalAlignment="Left" Margin="206,158,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="91,31,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-
+        <Grid.DataContext>
+            <local:ViewModel></local:ViewModel>
+        </Grid.DataContext>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding LoadTxt}" Content="Load"/>
+            <Button Grid.Column="1" Command="{Binding RandomSelection}" Content="Roll"/>
+        </Grid>
+        <TextBlock Grid.Row="1" Text="{Binding SelectedStudent.Name}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="50">dengyongjie</TextBlock>
     </Grid>
 </Window>

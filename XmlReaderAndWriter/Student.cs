@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XmlReaderAndWriter
 {
-    class Student:NotificationObject
+    public class Student:NotificationObject
     {
         private int _ID;
         public int ID
