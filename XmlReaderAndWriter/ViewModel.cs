@@ -50,6 +50,8 @@ namespace XmlReaderAndWriter
             {
                 SelectioinTimer.Stop();
                 SelectedStudent.Name = NameQueue.Dequeue();
+                _RandomSelection.CanExecute(true);
+                _RandomSelection.RaiseCanExecuteChanged();
             }
             else
             {
@@ -59,9 +61,11 @@ namespace XmlReaderAndWriter
 
         private void RandomSelectionExecute()
         {
+            _RandomSelection.CanExecute(false);
+            _RandomSelection.RaiseCanExecuteChanged();
             int RandomResult = 0;
             int SelectedIndex = -1;
-            int SelectionTimes = _RandomTimes.Next(1,8);
+            int SelectionTimes = _RandomTimes.Next(1,11);
             for (int i = 0; i < SelectionTimes; i++)
             {
                 SelectedIndex = -1;
@@ -102,9 +106,13 @@ namespace XmlReaderAndWriter
         private bool RandomSelectionCanExecute(object param=null)
         {
             if (param == null)
+            {
                 return File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "StudentsXml.xml");
+            }
             else
+            {
                 return (bool)param;
+            }
         }
 
         private void LoadTxtExecute()
