@@ -11,9 +11,9 @@
             <local:ViewModel></local:ViewModel>
         </Grid.DataContext>
         <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="150"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -23,7 +23,9 @@
             <Button Grid.Column="0" Command="{Binding LoadTxt}" Content="Load"/>
             <Button Grid.Column="1" Command="{Binding RandomSelection}" Content="Roll"/>
         </Grid>
-        <TextBlock Grid.Row="1" Text="{Binding SelectedStudent.Name}" FontSize="50" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="50">dengyongjie</TextBlock>
+        <Viewbox Grid.Row="1" >
+            <TextBlock Text="{Binding SelectedStudent.Name}"  VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        </Viewbox>
+        <TextBlock Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Right">Version 1.0 邓雍杰</TextBlock>
     </Grid>
 </Window>

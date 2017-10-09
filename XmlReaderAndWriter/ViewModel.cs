@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -40,22 +41,46 @@ namespace XmlReaderAndWriter
             _LoadTxt.ExecuteCommand += LoadTxtExecute;
             _StudentXml = new Xmlhelper(System.AppDomain.CurrentDomain.BaseDirectory + "StudentsXml.xml");
             InitialViewModel();
+            SelectioinTimer.Elapsed += SelectioinTimer_Elapsed;
+        }
+
+        private void SelectioinTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (NameQueue.Count==1)
+            {
+                SelectioinTimer.Stop();
+                SelectedStudent.Name = NameQueue.Dequeue();
+            }
+            else
+            {
+                SelectedStudent.Name = NameQueue.Dequeue();
+            }
         }
 
         private void RandomSelectionExecute()
         {
-            int RandomResult = _Random.Next(Limit);
+            int RandomResult = 0;
             int SelectedIndex = -1;
-            do
+            int SelectionTimes = _RandomTimes.Next(1,8);
+            for (int i = 0; i < SelectionTimes; i++)
             {
-                SelectedIndex++;
-                if (_StudentStatesList[SelectedIndex])
+                SelectedIndex = -1;
+                RandomResult = _Random.Next(Limit);
+                do
                 {
-                    RandomResult--;
-                }
-            } while (RandomResult >= 0);
+                    SelectedIndex++;
+                    if (_StudentStatesList[SelectedIndex])
+                    {
+                        RandomResult--;
+                    }
+                } while (RandomResult >= 0);
 
-            SelectedStudent.Name = _StudentNamesList[SelectedIndex];
+                //SelectedStudent.Name = _StudentNamesList[SelectedIndex];
+                NameQueue.Enqueue(_StudentNamesList[SelectedIndex]);
+
+            }
+            SelectioinTimer.Start();
+            Thread.Sleep(200);
             Limit--;
             if (Limit == 0)
             {
@@ -74,9 +99,12 @@ namespace XmlReaderAndWriter
             }
         }
 
-        private bool RandomSelectionCanExecute()
+        private bool RandomSelectionCanExecute(object param=null)
         {
-            return File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "StudentsXml.xml");
+            if (param == null)
+                return File.Exists(System.AppDomain.CurrentDomain.BaseDirectory + "StudentsXml.xml");
+            else
+                return (bool)param;
         }
 
         private void LoadTxtExecute()
@@ -100,6 +128,9 @@ namespace XmlReaderAndWriter
         private List<bool> _StudentStatesList = new List<bool>();
         private List<string> _StudentNamesList = new List<string>();
         private Random _Random = new Random();
+        private Random _RandomTimes = new Random();
+        private System.Timers.Timer SelectioinTimer = new System.Timers.Timer(200);
+        private Queue<string> NameQueue = new Queue<string>();
         private int Limit = -1;
         private void InitialViewModel()
         {

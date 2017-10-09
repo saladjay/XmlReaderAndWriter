@@ -11,7 +11,7 @@ namespace XmlReaderAndWriter
     {
         public Action ExecuteCommand = null;
 
-        public Func<bool> CanExecuteCommand = null;
+        public Func<object,bool> CanExecuteCommand = null;
 
         public event EventHandler CanExecuteChanged;
 
@@ -19,7 +19,7 @@ namespace XmlReaderAndWriter
         {
             if (CanExecuteCommand != null)
             {
-                return this.CanExecuteCommand();
+                return this.CanExecuteCommand(parameter);
             }
             else
             {
