@@ -93,6 +93,7 @@ namespace XmlReaderAndWriter
                 }
                 _StudentXml.CreateStudentXml(tempArray);
                 _RandomSelection.RaiseCanExecuteChanged();
+                InitialViewModel();
             }
         }
 
